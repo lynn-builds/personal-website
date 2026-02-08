@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pink: #ff66c4;
+  --black: #0b0b0f;
+  --white: #f7f5ef;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-black font-sans;
+}
+
+::selection {
+  background: var(--pink);
+  color: var(--black);
+}
+
+.bg-blob::before,
+.bg-blob::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border: 3px solid var(--black);
+  opacity: 0.15;
+}
+
+.bg-blob::before {
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  top: -60px;
+  right: -40px;
+}
+
+.bg-blob::after {
+  width: 180px;
+  height: 140px;
+  border-radius: 80px 40px 90px 50px;
+  bottom: -40px;
+  left: -30px;
+  display: none;
+}
+
+.bg-blob.bg-blob--lower::before {
+  top: 140px;
+}
+
+
+.terminal-panel {
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: 6px 6px 0 var(--black);
+}
+
+.terminal-typing-output {
+  min-height: 120px;
+  white-space: pre-wrap;
+}
+
+.terminal-typing-text {
+  display: inline;
+}
+
+.terminal-blinker {
+  opacity: 1;
+  margin-bottom: -2px;
+  height: 15px;
+  margin-left: 2px;
+  border-left: 2px solid var(--black);
+  animation: terminal-blinker 0.9s steps(2, start) infinite;
+}
+
+@keyframes terminal-blinker {
+  to {
+    visibility: hidden;
+  }
+}
+
+
+.pill {
+  @apply inline-flex items-center gap-2 rounded-full border-2 border-black px-4 py-2 text-sm font-mono;
+}
+
+.nav-link {
+  @apply flex items-center gap-3 rounded-full border-2 border-black px-3 py-2 text-sm font-mono uppercase tracking-wide transition;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  @apply bg-black text-white;
+}
+
+.sidebar {
+  width: 240px;
+  z-index: 40;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease;
+}
+
+.sidebar__summary {
+  @apply flex items-center bg-transparent px-3 py-3;
+  cursor: pointer;
+  list-style: none;
+}
+
+.sidebar__summary::-webkit-details-marker {
+  display: none;
+}
+
+.sidebar__burger {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__burger span {
+  width: 22px;
+  height: 2px;
+  background: var(--black);
+  display: block;
+}
+
+.sidebar__body {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 24px;
+  padding: 72px 24px 24px;
+}
+
+.site-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 30;
+}
+
+body.nav-open .site-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.nav-open .sidebar {
+  background: #f7f5ef;
+  box-shadow: 8px 0 0 #0b0b0f;
+  transform: translateX(0);
+}
+
+
+.card {
+  @apply border-2 border-black bg-white shadow-thick transition;
+}
+
+.card:hover {
+  transform: translate(-2px, -2px);
+}
+
+.rich-content h2,
+.rich-content h3 {
+  @apply mt-8 text-2xl font-semibold;
+}
+
+.rich-content p {
+  @apply mt-4 text-base leading-relaxed text-black/80;
+}
+
+.rich-content ul {
+  @apply mt-4 list-disc pl-6;
+}
+
+.rich-content li {
+  @apply mb-2;
+}
+
+.blog-card-visual {
+  background: radial-gradient(circle at 20% 20%, rgba(255, 122, 122, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(122, 166, 255, 0.4), transparent 55%),
+    radial-gradient(circle at 30% 80%, rgba(255, 211, 110, 0.35), transparent 60%),
+    #f7f5ef;
+}
+
+.project-card-visual {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 15% 30%, rgba(122, 166, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 75% 25%, rgba(255, 154, 213, 0.4), transparent 55%),
+    radial-gradient(circle at 35% 80%, rgba(122, 255, 177, 0.35), transparent 60%),
+    #f7f5ef;
+}
+
+.project-card-image {
+  mix-blend-mode: multiply;
+  opacity: 0.98;
+}
+
+.about-scene__canvas {
+  min-height: 360px;
+  border: 3px solid var(--black);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 122, 122, 0.3), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(122, 166, 255, 0.45), transparent 60%),
+    radial-gradient(circle at 30% 80%, rgba(255, 211, 110, 0.35), transparent 65%),
+    linear-gradient(180deg, #20d6c4 0%, #3560c7 48%, #7b2ee9 100%);
+  box-shadow: 6px 6px 0 var(--black);
+}
+
+.about-info {
+  min-height: 220px;
+}

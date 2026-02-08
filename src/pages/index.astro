@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TerminalPanel from "../components/TerminalPanel.astro";
+import ProjectFilter from "../components/ProjectFilter";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const projectData = projects.map((entry) => ({
+  slug: entry.slug,
+  ...entry.data,
+}));
+---
+<BaseLayout title="Lynn Han | Portfolio">
+  <section class="relative bg-blob bg-blob--lower">
+    <div class="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="space-y-6">
+        <div class="font-mono text-sm">$ whoami</div>
+        <h1 class="text-4xl font-bold uppercase tracking-tight sm:text-5xl">
+          Lynn Han
+        </h1>
+        <p class="max-w-xl text-lg text-black/80">
+          Full-stack engineer crafting bold, high-contrast interfaces and data-rich experiences.
+          Shipping modern web apps with a playful, editorial edge.
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a class="pill border-black bg-black text-white" href="#projects">cd ~/projects</a>
+          <a class="pill border-black" href="https://www.linkedin.com/in/lynn-han-082066173/" target="_blank" rel="noreferrer">linkedin</a>
+          <a class="pill border-black" href="https://github.com/lynn-builds" target="_blank" rel="noreferrer">github</a>
+          <a class="pill border-black" href="mailto:lynnhan1995@gmail.com">email</a>
+        </div>
+      </div>
+      <TerminalPanel
+        lines={[
+          "$ whoami\nrole: frontend engineer\nfocus: web systems, design systems, data viz\nlocation: USA",
+          "$ pwd\n/home/lynn",
+        ]}
+      />
+    </div>
+  </section>
+
+  <section id="projects" class="mt-20 space-y-8">
+    <div class="space-y-2">
+      <div class="font-mono text-sm">$ ls ~/projects</div>
+      <h2 class="text-3xl font-semibold">Selected work</h2>
+    </div>
+    <div class="mt-6">
+      <ProjectFilter client:load projects={projectData} />
+    </div>
+  </section>
+
+  <section id="about" class="mt-24 max-w-3xl space-y-4">
+    <div class="font-mono text-sm">$ cat ./about</div>
+    <h2 class="text-3xl font-semibold">About</h2>
+    <p class="text-lg text-black/80">
+      I build UI systems that are fast, expressive, and friendly to the teams who maintain them.
+      Recent obsessions include component-driven workflows, expressive data storytelling, and shipping
+      clean interfaces with a bit of attitude.
+    </p>
+  </section>
+</BaseLayout>

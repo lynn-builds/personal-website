@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const baseUrl = import.meta.env.BASE_URL;
+const postUrl = `${baseUrl}blog/${post.slug}`;
+---
+<BaseLayout title={`${post.data.title} | Blog`}>
+  <article class="max-w-4xl space-y-12">
+    <section class="relative space-y-6">
+      <div class="font-mono text-sm">$ cat ~/blog/{post.slug}</div>
+      <a
+        class="pill border-black text-sm font-mono"
+        href={`${baseUrl}blog`}
+        onclick="if (history.length > 1) { history.back(); return false; }"
+      >
+        cd .. (back)
+      </a>
+      <header class="space-y-4">
+        <h1 class="text-4xl font-bold">{post.data.title}</h1>
+        <p class="text-lg text-black/80">{post.data.description}</p>
+        <div class="flex flex-wrap items-center gap-3 text-sm font-mono uppercase tracking-wide">
+          <span>{post.data.date}</span>
+          {post.data.tags?.map((tag) => (
+            <span class="pill border-black" key={tag}>{tag}</span>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-sm font-mono">
+          {post.data.mediumUrl && (
+            <a class="pill border-black" href={post.data.mediumUrl} target="_blank" rel="noreferrer">
+              open medium
+            </a>
+          )}
+          <a class="pill border-black" href={postUrl}>permalink</a>
+        </div>
+      </header>
+    </section>
+
+    <section class="space-y-6">
+      <div class="rich-content">
+        <Content />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

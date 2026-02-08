@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const baseUrl = import.meta.env.BASE_URL;
+const coverPath = project.data.coverImage
+  ? project.data.coverImage.replace(/^\//, "")
+  : `projects/${project.slug}.png`;
+const coverUrl = `${baseUrl}${coverPath}`;
+const projectUrl = `${baseUrl}projects/${project.slug}`;
+---
+<BaseLayout title={`${project.data.title} | Projects`}>
+  <article class="max-w-4xl space-y-12">
+    <section class="relative space-y-6">
+      <div class="font-mono text-sm">$ cat ~/projects/{project.slug}</div>
+      <a
+        class="pill border-black text-sm font-mono"
+        href={`${baseUrl}projects`}
+        onclick="if (history.length > 1) { history.back(); return false; }"
+      >
+        cd .. (back)
+      </a>
+      <header class="space-y-4">
+        <h1 class="text-4xl font-bold">{project.data.title}</h1>
+        <p class="text-lg text-black/80">{project.data.description}</p>
+        <div class="flex flex-wrap gap-2">
+          {project.data.tags.map((tag) => (
+            <span class="pill border-black" key={tag}>{tag}</span>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-sm font-mono">
+          {project.data.links?.demo && (
+            <a class="pill border-black" href={project.data.links.demo} target="_blank" rel="noreferrer">
+              open demo
+            </a>
+          )}
+          {project.data.links?.github && (
+            <a class="pill border-black" href={project.data.links.github} target="_blank" rel="noreferrer">
+              git repo
+            </a>
+          )}
+          <a class="pill border-black" href={projectUrl}>permalink</a>
+        </div>
+      </header>
+    </section>
+
+    <section class="space-y-6">
+      <div class="card overflow-hidden rounded-3xl">
+        <img
+          src={coverUrl}
+          alt={project.data.title}
+          class="h-64 w-full object-cover"
+        />
+      </div>
+      <div class="rich-content">
+        <Content />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

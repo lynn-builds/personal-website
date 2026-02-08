@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutScene from "../components/AboutScene";
+---
+<BaseLayout title="About | Lynn Han">
+  <section class="relative max-w-5xl space-y-8">
+    <div class="font-mono text-sm">$ whoami --long</div>
+    <h1 class="text-4xl font-bold">Engineer, Designer, Tinkerer</h1>
+    <p class="max-w-3xl text-lg text-black/80">
+      I build expressive interfaces and data-first products. This page is a playful sandbox that maps
+      the things I care about: craft, motion, systems thinking, and curiosity outside of work.
+    </p>
+  </section>
+
+  <section class="mt-16 space-y-6">
+    <div class="font-mono text-sm">$ ./skills-map --interactive</div>
+    <div class="mt-8">
+      <AboutScene client:load />
+    </div>
+  </section>
+</BaseLayout>

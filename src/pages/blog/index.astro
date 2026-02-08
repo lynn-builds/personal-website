@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+const sorted = posts.sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path) => `${baseUrl}${path.replace(/^\//, "")}`;
+---
+<BaseLayout title="Blog | Lynn Han">
+  <section class="space-y-8">
+    <div class="font-mono text-sm">$ ls ~/blog</div>
+    <h1 class="text-4xl font-bold">Writing</h1>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {sorted.map((post) => (
+        <article class="card flex flex-col overflow-hidden rounded-3xl" key={post.slug}>
+          <a href={withBase(`/blog/${post.slug}`)} class="block h-40 border-b-2 border-black bg-white">
+            <div class="blog-card-visual h-full w-full" aria-hidden="true"></div>
+          </a>
+          <div class="flex flex-1 flex-col gap-4 p-6">
+            <div class="text-xs font-mono uppercase tracking-wide">{post.data.date}</div>
+            <h2 class="text-2xl font-semibold">
+              <a href={withBase(`/blog/${post.slug}`)} class="hover:underline">
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="text-sm text-black/80">{post.data.description}</p>
+            <div class="mt-auto flex flex-wrap items-center gap-3 text-sm font-mono">
+              <a class="pill border-black" href={withBase(`/blog/${post.slug}`)}>cat ./post</a>
+              {post.data.mediumUrl && (
+                <a class="pill border-black" href={post.data.mediumUrl} target="_blank" rel="noreferrer">
+                  open medium
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

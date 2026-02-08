@@ -1,0 +1,50 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path) => `${baseUrl}${path.replace(/^\//, "")}`;
+const currentPath = Astro.url.pathname.replace(baseUrl, "/");
+const navItems = [
+  { label: "Home", href: withBase("/"), match: (path) => path === "/" },
+  { label: "Projects", href: withBase("/projects"), match: (path) => path.startsWith("/projects") },
+  { label: "Blog", href: withBase("/blog"), match: (path) => path.startsWith("/blog") },
+  { label: "About", href: withBase("/about"), match: (path) => path === "/about" },
+];
+---
+<div class="sidebar-toggle fixed left-4 top-6 z-50 hidden md:block">
+  <button class="sidebar__summary" type="button" aria-label="Open navigation">
+    <span class="sidebar__burger" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </button>
+</div>
+
+<aside class="sidebar fixed left-0 top-0 hidden h-screen border-r-2 border-black bg-white md:block" id="site-sidebar" aria-hidden="true">
+  <div class="sidebar__body">
+    <nav class="flex flex-col gap-3">
+      {navItems.map((item) => (
+        <a class={`nav-link ${item.match(currentPath) ? "active" : ""}`} href={item.href} aria-current={item.match(currentPath) ? "page" : undefined}>
+          <span class="h-2 w-2 rounded-full border-2 border-black" />
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="mt-auto text-xs font-mono">$ whoami</div>
+  </div>
+</aside>
+
+<script type="module">
+  const sidebar = document.getElementById("site-sidebar");
+  const toggle = document.querySelector(".sidebar-toggle button");
+  const overlay = document.getElementById("site-overlay");
+  const setState = (open) => {
+    document.body.classList.toggle("nav-open", open);
+    if (sidebar) sidebar.setAttribute("aria-hidden", open ? "false" : "true");
+  };
+  setState(false);
+  toggle?.addEventListener("click", () => {
+    const isOpen = document.body.classList.contains("nav-open");
+    setState(!isOpen);
+  });
+  overlay?.addEventListener("click", () => setState(false));
+</script>

@@ -1,0 +1,48 @@
+---
+const { lines = [] } = Astro.props;
+const typedContent = lines.join("\n");
+---
+<div class="terminal-panel relative z-10 flex flex-col gap-3 rounded-2xl p-6 font-mono text-sm">
+  <div class="flex items-center gap-2 text-xs uppercase tracking-widest">
+    <span class="h-2 w-2 rounded-full bg-black"></span>
+    <span>terminal</span>
+  </div>
+  <div class="terminal-typing-output">
+    <span class="terminal-typing-text" data-text={typedContent}></span>
+    <span class="terminal-blinker" aria-hidden="true">&#32;</span>
+  </div>
+</div>
+
+<script type="module">
+  const targets = document.querySelectorAll(".terminal-typing-text");
+  const escapeHtml = (value) =>
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  targets.forEach((target) => {
+    if (target.dataset.typed === "true") return;
+    target.dataset.typed = "true";
+    const raw = target.dataset.text ?? "";
+    const safe = escapeHtml(raw).replace(/\n/g, "<br/>");
+    let i = 0;
+    let isTag = false;
+
+    const type = () => {
+      const text = safe.slice(0, ++i);
+      target.innerHTML = text;
+      if (text === safe) return;
+      const char = text.slice(-1);
+      if (char === "<") isTag = true;
+      if (char === ">") isTag = false;
+      if (isTag) return type();
+      const jitter = 25 + Math.random() * 45;
+      setTimeout(type, jitter);
+    };
+
+    type();
+  });
+</script>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectFilter from "../../components/ProjectFilter";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const projectData = projects.map((entry) => ({
+  slug: entry.slug,
+  ...entry.data,
+}));
+---
+<BaseLayout title="Projects | Lynn Han">
+  <section class="space-y-8">
+    <div class="font-mono text-sm">$ ls ~/projects</div>
+    <h1 class="text-4xl font-bold">Projects</h1>
+    <div class="mt-6">
+      <ProjectFilter client:load projects={projectData} />
+    </div>
+  </section>
+</BaseLayout>
