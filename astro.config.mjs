@@ -3,7 +3,7 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: "https://lynn-builds.github.io",
-  base: process.env.NODE_ENV === "development" ? "/" : "/personal-website/",
+  site: "https://lynnhan.me",
+  base: "/",
   integrations: [react(), tailwind()],
 });
