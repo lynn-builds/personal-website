@@ -234,13 +234,19 @@ body.nav-open .sidebar {
 
 .project-detail-fallback {
   display: flex;
-  min-height: 16rem;
+  min-height: 8rem;
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .project-detail-fallback {
+    min-height: 16rem;
+  }
 }
 
 .about-scene__canvas {

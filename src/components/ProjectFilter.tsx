@@ -127,10 +127,13 @@ export default function ProjectFilter({ projects }: Props) {
         {filtered.map((project) => {
           const projectHref = toPageUrl(`projects/${project.slug}`);
           const coverImage = project.coverImage ? toPublicUrl(project.coverImage) : "";
+          const visualClassName = coverImage
+            ? "project-card-visual h-72 border-b-2 border-black md:h-80"
+            : "project-card-visual h-36 border-b-2 border-black md:h-80";
 
           return (
             <article key={project.slug} className="card flex flex-col overflow-hidden rounded-3xl">
-              <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
+              <div className={visualClassName}>
                 <a
                   href={projectHref}
                   className="block h-full"
