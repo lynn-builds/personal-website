@@ -1,7 +1,7 @@
 ---
 title: Human-in-the-Loop Claims Video Review
 description: AI-assisted review product that turns model detections into faster, human-reviewed claims decisions.
-coverImage: /projects/ai-claims-video-review.png
+coverImage: /projects/ai-claims-video-review-redacted.png
 date: "2026-04-15"
 tags: [fullstack, react, ml, dataviz]
 role: Full Stack Engineer
