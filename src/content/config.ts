@@ -12,6 +12,7 @@ const projects = defineCollection({
       .object({
         github: z.string().url().optional(),
         demo: z.string().url().optional(),
+        website: z.string().url().optional(),
       })
       .optional(),
     coverImage: z.string().optional(),

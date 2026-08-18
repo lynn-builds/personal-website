@@ -17,6 +17,21 @@ type Props = {
 
 const allLabel = "All";
 const baseUrl = import.meta.env.BASE_URL;
+const tagLabels: Record<string, string> = {
+  astro: "Astro",
+  cloud: "Cloud",
+  dataviz: "Data Viz",
+  design: "Design",
+  frontend: "Frontend",
+  fullstack: "Full Stack",
+  ml: "ML",
+  nodejs: "Node.js",
+  performance: "Performance",
+  python: "Python",
+  react: "React",
+  research: "Research",
+  vr: "VR",
+};
 
 function toPublicUrl(path: string) {
   const normalized = path.startsWith("/") ? path.slice(1) : path;
@@ -26,6 +41,10 @@ function toPublicUrl(path: string) {
 function toPageUrl(path: string) {
   const normalized = path.startsWith("/") ? path.slice(1) : path;
   return `${baseUrl}${normalized}`;
+}
+
+function toDisplayLabel(value: string) {
+  return tagLabels[value] ?? value.replace(/(^|\s|-)\S/g, (match) => match.toUpperCase());
 }
 
 function getQueryParam(name: string) {
@@ -90,72 +109,77 @@ export default function ProjectFilter({ projects }: Props) {
               selectedTag === tag ? "bg-black text-white" : "bg-white"
             }`}
           >
-            {tag}
+            {toDisplayLabel(tag)}
           </button>
         ))}
-        <div className="ml-auto flex w-full items-center gap-2 md:w-auto">
-          <label className="font-mono text-xs uppercase tracking-wide">cat</label>
+        <div className="flex w-full items-center sm:ml-auto sm:w-auto">
           <input
-            className="w-full rounded-full border-2 border-black px-4 py-2 text-sm font-mono md:w-56"
-            placeholder="search"
+            className="w-full rounded-full border-2 border-black px-4 py-2 text-sm font-mono sm:w-56"
+            placeholder="Search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((project) => (
-          <article key={project.slug} className="card flex flex-col overflow-hidden rounded-3xl">
-            <div className="project-card-visual h-40 border-b-2 border-black">
-              <a
-                href={toPageUrl(`projects/${project.slug}`)}
-                className="block h-full"
-                aria-label={`View ${project.title}`}
-              >
-                <img
-                  src={toPublicUrl(project.coverImage || `projects/${project.slug}.png`)}
-                  alt={project.title}
-                  className="project-card-image h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </a>
-            </div>
-            <div className="flex flex-1 flex-col gap-4 p-6">
-              <div>
-                <h3 className="text-xl font-semibold">
-                  <a href={toPageUrl(`projects/${project.slug}`)} className="hover:underline">
-                    {project.title}
-                  </a>
-                </h3>
-                <p className="mt-2 text-sm text-black/80">{project.description}</p>
+      <div className="grid gap-6 sm:grid-cols-2">
+        {filtered.map((project) => {
+          const projectHref = toPageUrl(`projects/${project.slug}`);
+          const coverImage = project.coverImage ? toPublicUrl(project.coverImage) : "";
+
+          return (
+            <article key={project.slug} className="card flex flex-col overflow-hidden rounded-3xl">
+              <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
+                <a
+                  href={projectHref}
+                  className="block h-full"
+                  aria-label={`View ${project.title}`}
+                >
+                  {coverImage ? (
+                    <img
+                      src={coverImage}
+                      alt={project.title}
+                      className="project-card-image h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="project-card-fallback">
+                      <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
+                      <span>{project.title}</span>
+                    </div>
+                  )}
+                </a>
               </div>
-              {project.role && (
-                <div className="text-xs font-mono uppercase tracking-wide">{project.role}</div>
-              )}
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="pill border-black">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-auto flex flex-wrap items-center gap-3 text-sm font-mono">
-                <a className="pill border-black" href={toPageUrl(`projects/${project.slug}`)}>cat ./case-study</a>
-                {project.links?.demo && (
-                  <a className="pill border-black" href={project.links.demo} target="_blank" rel="noreferrer">
-                    open demo
-                  </a>
+              <div className="flex flex-1 flex-col gap-4 p-6">
+                <div>
+                  <h3 className="text-xl font-semibold">
+                    <a href={projectHref} className="hover:underline">
+                      {project.title}
+                    </a>
+                  </h3>
+                  <p className="mt-2 text-sm text-black/80">{project.description}</p>
+                </div>
+                {project.role && (
+                  <div className="text-xs font-mono uppercase tracking-wide">{project.role}</div>
                 )}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="pill border-black">
+                      {toDisplayLabel(tag)}
+                    </span>
+                  ))}
+                </div>
                 {project.links?.github && (
-                  <a className="pill border-black" href={project.links.github} target="_blank" rel="noreferrer">
-                    git repo
-                  </a>
+                  <div className="mt-auto flex flex-wrap items-center gap-3 text-sm font-mono">
+                    <a className="pill border-black" href={project.links.github} target="_blank" rel="noreferrer">
+                      Git Repo
+                    </a>
+                  </div>
                 )}
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </div>
   );

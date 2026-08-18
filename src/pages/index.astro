@@ -5,34 +5,40 @@ import ProjectFilter from "../components/ProjectFilter";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-const projectData = projects.map((entry) => ({
+const projectData = projects
+  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
+  .map((entry) => ({
   slug: entry.slug,
   ...entry.data,
 }));
 ---
 <BaseLayout title="Lynn Han | Portfolio">
   <section class="relative bg-blob bg-blob--lower">
-    <div class="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-      <div class="space-y-6">
-        <div class="font-mono text-sm">$ whoami</div>
+    <div class="hero-control-label hidden md:flex">
+      <span class="hero-kicker font-mono text-sm">$ whoami</span>
+    </div>
+    <div class="relative z-10 mt-8 grid gap-10 md:mt-8 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="space-y-5">
+        <div class="hero-kicker font-mono text-sm md:hidden">$ whoami</div>
         <h1 class="text-4xl font-bold uppercase tracking-tight sm:text-5xl">
           Lynn Han
         </h1>
         <p class="max-w-xl text-lg text-black/80">
-          Full-stack engineer crafting bold, high-contrast interfaces and data-rich experiences.
-          Shipping modern web apps with a playful, editorial edge.
+          Product-focused software engineer with 6+ years of experience building data-intensive
+          applications and intuitive user experiences. Combines strong frontend engineering and product
+          design instincts with hands-on work in data preprocessing, analytics, and ML/LLM-powered
+          workflows to turn complex data into useful products.
         </p>
         <div class="flex flex-wrap items-center gap-3">
           <a class="pill border-black bg-black text-white" href="#projects">cd ~/projects</a>
-          <a class="pill border-black" href="https://www.linkedin.com/in/lynn-han-082066173/" target="_blank" rel="noreferrer">linkedin</a>
-          <a class="pill border-black" href="https://github.com/lynn-builds" target="_blank" rel="noreferrer">github</a>
-          <a class="pill border-black" href="mailto:lynnhan1995@gmail.com">email</a>
+          <a class="pill border-black" href="https://www.linkedin.com/in/guojun-lynn-han-082066173/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="pill border-black" href="https://github.com/lynn-builds" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="pill border-black" href="mailto:lynnhan1995@gmail.com">Email</a>
         </div>
       </div>
       <TerminalPanel
         lines={[
-          "$ whoami\nrole: frontend engineer\nfocus: web systems, design systems, data viz\nlocation: USA",
-          "$ pwd\n/home/lynn",
+          "$ whoami\nRole: Senior Software Engineer\nFocus: Data Visualization, Full-Stack Engineering, Data-Intensive Products, Statistics, and exploring LLMs\nLocation: USA",
         ]}
       />
     </div>
@@ -41,20 +47,11 @@ const projectData = projects.map((entry) => ({
   <section id="projects" class="mt-20 space-y-8">
     <div class="space-y-2">
       <div class="font-mono text-sm">$ ls ~/projects</div>
-      <h2 class="text-3xl font-semibold">Selected work</h2>
+      <h2 class="text-3xl font-semibold">Selected Work</h2>
     </div>
     <div class="mt-6">
       <ProjectFilter client:load projects={projectData} />
     </div>
   </section>
 
-  <section id="about" class="mt-24 max-w-3xl space-y-4">
-    <div class="font-mono text-sm">$ cat ./about</div>
-    <h2 class="text-3xl font-semibold">About</h2>
-    <p class="text-lg text-black/80">
-      I build UI systems that are fast, expressive, and friendly to the teams who maintain them.
-      Recent obsessions include component-driven workflows, expressive data storytelling, and shipping
-      clean interfaces with a bit of attitude.
-    </p>
-  </section>
 </BaseLayout>

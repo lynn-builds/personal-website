@@ -4,14 +4,19 @@ import ProjectFilter from "../../components/ProjectFilter";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-const projectData = projects.map((entry) => ({
+const projectData = projects
+  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
+  .map((entry) => ({
   slug: entry.slug,
   ...entry.data,
 }));
 ---
 <BaseLayout title="Projects | Lynn Han">
   <section class="space-y-8">
-    <div class="font-mono text-sm">$ ls ~/projects</div>
+    <div class="hero-control-label hidden md:flex">
+      <span class="font-mono text-sm">$ ls ~/projects</span>
+    </div>
+    <div class="font-mono text-sm md:hidden">$ ls ~/projects</div>
     <h1 class="text-4xl font-bold">Projects</h1>
     <div class="mt-6">
       <ProjectFilter client:load projects={projectData} />

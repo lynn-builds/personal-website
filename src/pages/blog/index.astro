@@ -9,7 +9,10 @@ const withBase = (path) => `${baseUrl}${path.replace(/^\//, "")}`;
 ---
 <BaseLayout title="Blog | Lynn Han">
   <section class="space-y-8">
-    <div class="font-mono text-sm">$ ls ~/blog</div>
+    <div class="hero-control-label hidden md:flex">
+      <span class="font-mono text-sm">$ ls ~/blog</span>
+    </div>
+    <div class="font-mono text-sm md:hidden">$ ls ~/blog</div>
     <h1 class="text-4xl font-bold">Writing</h1>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {sorted.map((post) => (
@@ -29,7 +32,7 @@ const withBase = (path) => `${baseUrl}${path.replace(/^\//, "")}`;
               <a class="pill border-black" href={withBase(`/blog/${post.slug}`)}>cat ./post</a>
               {post.data.mediumUrl && (
                 <a class="pill border-black" href={post.data.mediumUrl} target="_blank" rel="noreferrer">
-                  open medium
+                  Open Medium
                 </a>
               )}
             </div>

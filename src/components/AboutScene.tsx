@@ -20,88 +20,62 @@ const items: Item[] = [
     kind: "core",
     color: "#f7f5ff",
     description:
-      "I build things that look good, feel intentional, and are a pleasure to work with. My north star is creating software that brings people happiness without adding financial pressure.",
+      "Senior Software Engineer focused on data-intensive products, intuitive user experiences, and systems that help people make faster decisions from complex data.",
     size: 1.15,
   },
   {
     id: "frontend",
-    label: "Frontend Systems",
+    label: "Frontend",
     kind: "skill",
     color: "#ff9ad5",
-    description: "Design systems, component libraries, and interface architecture.",
+    description:
+      "React, TypeScript, Redux, Node.js, and component-driven UI architecture for claims review tools, onboarding flows, dashboards, and internal analytics products.",
     orbit: 2.6,
     size: 0.45,
     speed: 0.006,
   },
   {
     id: "backend",
-    label: "Backend Collaboration",
+    label: "Backend",
     kind: "skill",
     color: "#8fe6ff",
-    description: "APIs that are predictable, documented, and nice to integrate.",
+    description:
+      "GraphQL, REST, Java/Spring Boot, Go/gRPC, Python, and Rails services connecting product workflows to BigQuery, Azure Blob Storage, MongoDB, PostgreSQL, Redis, and vendor systems.",
     orbit: 3.2,
     size: 0.38,
     speed: 0.0045,
-  },
-  {
-    id: "ml",
-    label: "ML Prototypes",
-    kind: "skill",
-    color: "#ffd36e",
-    description: "Turning model outputs into interpretable, human-friendly tools.",
-    orbit: 3.9,
-    size: 0.34,
-    speed: 0.0036,
   },
   {
     id: "dataviz",
     label: "Data Visualization",
     kind: "skill",
     color: "#7aa6ff",
-    description: "Storytelling with data that feels editorial, not overwhelming.",
-    orbit: 4.5,
+    description:
+      "D3.js, ECharts, Plotly, ReGraph, KronoGraph, AG Grid, and Canvas experiences for network traffic, time-series forecasts, sales and inventory, housing metrics, and research visualizations.",
+    orbit: 3.9,
     size: 0.4,
+    speed: 0.0036,
+  },
+  {
+    id: "stats",
+    label: "Statistics and Data Analysis",
+    kind: "skill",
+    color: "#ffd36e",
+    description:
+      "SQL, BigQuery, KPI definition, ETL pipelines, Plotly experiments, and recall-first ML evaluation for translating raw data into reliable product decisions.",
+    orbit: 4.5,
+    size: 0.36,
     speed: 0.003,
   },
   {
-    id: "yoga",
-    label: "Yoga",
+    id: "hobbies",
+    label: "Hobbies",
     kind: "hobby",
     color: "#b28dff",
-    description: "A daily reset for clarity and patience.",
+    description: "Camping, photography, yoga, pickleball, swimming, and tennis.",
     orbit: 5.1,
-    size: 0.3,
+    size: 0.34,
     speed: 0.0026,
-  },
-  {
-    id: "camping",
-    label: "Camping",
-    kind: "hobby",
-    color: "#63c17e",
-    description: "Off-grid quiet time and a love for soft morning light.",
-    orbit: 5.7,
-    size: 0.28,
-    speed: 0.0022,
-  },
-  {
-    id: "photo",
-    label: "Photography",
-    kind: "hobby",
-    color: "#ff7a7a",
-    description: "Chasing texture, shadow, and imperfect symmetry.",
-    orbit: 6.2,
-    size: 0.27,
-    speed: 0.0018,
-  },
-  {
-    id: "sound",
-    label: "Ambient Music",
-    kind: "hobby",
-    color: "#7affb1",
-    description: "Soundscapes that make deep work feel lighter.",
-    orbit: 6.8,
-    size: 0.26,
-    speed: 0.0016,
   },
 ];
 
@@ -112,9 +86,9 @@ export default function AboutScene() {
   const focusedIdRef = useRef<string | null>(null);
   const focusTargetRef = useRef<THREE.Vector3 | null>(null);
   const focusCameraRef = useRef<THREE.Vector3 | null>(null);
-  const focusByIdRef = useRef<
-    ((id: string) => void) | null
-  >(null);
+  const focusByIdRef = useRef<(id: string) => void>((id: string) => {
+    setActiveId(id);
+  });
 
   const active = useMemo(
     () => items.find((item) => item.id === activeId) ?? items[0],
@@ -439,7 +413,7 @@ export default function AboutScene() {
               className={`pill border-black text-left ${
                 activeId === item.id ? "bg-black text-white" : "bg-white"
               }`}
-              onClick={() => focusByIdRef.current?.(item.id)}
+              onClick={() => focusByIdRef.current(item.id)}
               type="button"
             >
               {item.label}

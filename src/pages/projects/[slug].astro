@@ -10,55 +10,86 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await project.render();
 const baseUrl = import.meta.env.BASE_URL;
-const coverPath = project.data.coverImage
-  ? project.data.coverImage.replace(/^\//, "")
-  : `projects/${project.slug}.png`;
-const coverUrl = `${baseUrl}${coverPath}`;
-const projectUrl = `${baseUrl}projects/${project.slug}`;
+const coverUrl = project.data.coverImage
+  ? `${baseUrl}${project.data.coverImage.replace(/^\//, "")}`
+  : "";
+const tagLabels = {
+  cloud: "Cloud",
+  dataviz: "Data Viz",
+  frontend: "Frontend",
+  fullstack: "Full Stack",
+  ml: "ML",
+  nodejs: "Node.js",
+  performance: "Performance",
+  python: "Python",
+  react: "React",
+  research: "Research",
+  vr: "VR",
+};
+const toDisplayLabel = (value) =>
+  tagLabels[value] ?? value.replace(/(^|\s|-)\S/g, (match) => match.toUpperCase());
+const projectLinks = [
+  project.data.links?.website && { label: "Project Link", href: project.data.links.website },
+  project.data.links?.github && { label: "Git Repo", href: project.data.links.github },
+].filter(Boolean);
 ---
 <BaseLayout title={`${project.data.title} | Projects`}>
   <article class="max-w-4xl space-y-12">
     <section class="relative space-y-6">
-      <div class="font-mono text-sm">$ cat ~/projects/{project.slug}</div>
+      <div class="hero-control-label hidden md:flex">
+        <span class="font-mono text-sm">$ cat ~/projects/{project.slug}</span>
+      </div>
+      <div class="font-mono text-sm md:hidden">$ cat ~/projects/{project.slug}</div>
       <a
         class="pill border-black text-sm font-mono"
         href={`${baseUrl}projects`}
         onclick="if (history.length > 1) { history.back(); return false; }"
       >
-        cd .. (back)
+        cd .. (go back)
       </a>
       <header class="space-y-4">
         <h1 class="text-4xl font-bold">{project.data.title}</h1>
         <p class="text-lg text-black/80">{project.data.description}</p>
         <div class="flex flex-wrap gap-2">
           {project.data.tags.map((tag) => (
-            <span class="pill border-black" key={tag}>{tag}</span>
+            <span class="pill border-black" key={tag}>{toDisplayLabel(tag)}</span>
           ))}
         </div>
-        <div class="flex flex-wrap items-center gap-3 text-sm font-mono">
-          {project.data.links?.demo && (
-            <a class="pill border-black" href={project.data.links.demo} target="_blank" rel="noreferrer">
-              open demo
-            </a>
-          )}
-          {project.data.links?.github && (
-            <a class="pill border-black" href={project.data.links.github} target="_blank" rel="noreferrer">
-              git repo
-            </a>
-          )}
-          <a class="pill border-black" href={projectUrl}>permalink</a>
-        </div>
+        {projectLinks.length > 0 && (
+          <div class="space-y-2 pt-1">
+            <div class="font-mono text-xs uppercase tracking-wide text-black/80">Links</div>
+            <div class="flex flex-wrap items-center gap-4 text-sm font-mono">
+              {projectLinks.map((link) => (
+                <a
+                  class="underline decoration-2 underline-offset-4 hover:opacity-70"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
     </section>
 
     <section class="space-y-6">
-      <div class="card overflow-hidden rounded-3xl">
-        <img
-          src={coverUrl}
-          alt={project.data.title}
-          class="h-64 w-full object-cover"
-        />
-      </div>
+      {coverUrl ? (
+        <div class="card overflow-hidden rounded-3xl">
+          <img
+            src={coverUrl}
+            alt={project.data.title}
+            class="max-h-[75vh] w-full object-contain"
+          />
+        </div>
+      ) : (
+        <div class="card project-detail-fallback rounded-3xl">
+          <span class="font-mono text-sm uppercase tracking-wide">$ open case-study</span>
+          <span>{project.data.title}</span>
+        </div>
+      )}
       <div class="rich-content">
         <Content />
       </div>
