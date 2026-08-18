@@ -16,6 +16,7 @@ const projects = defineCollection({
       })
       .optional(),
     coverImage: z.string().optional(),
+    hideVisual: z.boolean().optional(),
   }),
 });
 

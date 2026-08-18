@@ -13,6 +13,7 @@ const baseUrl = import.meta.env.BASE_URL;
 const coverUrl = project.data.coverImage
   ? `${baseUrl}${project.data.coverImage.replace(/^\//, "")}`
   : "";
+const showVisual = !project.data.hideVisual;
 const tagLabels = {
   cloud: "Cloud",
   dataviz: "Data Viz",
@@ -24,7 +25,6 @@ const tagLabels = {
   python: "Python",
   react: "React",
   research: "Research",
-  vr: "VR",
 };
 const toDisplayLabel = (value) =>
   tagLabels[value] ?? value.replace(/(^|\s|-)\S/g, (match) => match.toUpperCase());
@@ -76,7 +76,7 @@ const projectLinks = [
     </section>
 
     <section class="space-y-6">
-      {coverUrl ? (
+      {showVisual && coverUrl ? (
         <div class="card overflow-hidden rounded-3xl">
           <img
             src={coverUrl}
@@ -84,12 +84,12 @@ const projectLinks = [
             class="max-h-[75vh] w-full object-contain"
           />
         </div>
-      ) : (
+      ) : showVisual ? (
         <div class="card project-detail-fallback rounded-3xl">
           <span class="font-mono text-sm uppercase tracking-wide">$ open case-study</span>
           <span>{project.data.title}</span>
         </div>
-      )}
+      ) : null}
       <div class="rich-content">
         <Content />
       </div>

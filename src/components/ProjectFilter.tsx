@@ -9,6 +9,7 @@ type Project = {
   role?: string;
   links?: { github?: string; demo?: string };
   coverImage?: string;
+  hideVisual?: boolean;
 };
 
 type Props = {
@@ -30,7 +31,6 @@ const tagLabels: Record<string, string> = {
   python: "Python",
   react: "React",
   research: "Research",
-  vr: "VR",
 };
 
 function toPublicUrl(path: string) {
@@ -100,21 +100,23 @@ export default function ProjectFilter({ projects }: Props) {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-center gap-3">
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => setSelectedTag(tag)}
-            className={`pill border-black ${
-              selectedTag === tag ? "bg-black text-white" : "bg-white"
-            }`}
-          >
-            {toDisplayLabel(tag)}
-          </button>
-        ))}
-        <div className="flex w-full items-center sm:ml-auto sm:w-auto">
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+        <div className="flex flex-wrap items-center gap-3">
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`pill border-black ${
+                selectedTag === tag ? "bg-black text-white" : "bg-white"
+              }`}
+            >
+              {toDisplayLabel(tag)}
+            </button>
+          ))}
+        </div>
+        <div className="w-full shrink-0 xl:w-56">
           <input
-            className="w-full rounded-full border-2 border-black px-4 py-2 text-sm font-mono sm:w-56"
+            className="w-full rounded-full border-2 border-black px-4 py-2 text-sm font-mono"
             placeholder="Search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -129,27 +131,29 @@ export default function ProjectFilter({ projects }: Props) {
 
           return (
             <article key={project.slug} className="card flex flex-col overflow-hidden rounded-3xl">
-              <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
-                <a
-                  href={projectHref}
-                  className="block h-full"
-                  aria-label={`View ${project.title}`}
-                >
-                  {coverImage ? (
-                    <img
-                      src={coverImage}
-                      alt={project.title}
-                      className="project-card-image h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="project-card-fallback">
-                      <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
-                      <span>{project.title}</span>
-                    </div>
-                  )}
-                </a>
-              </div>
+              {!project.hideVisual && (
+                <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
+                  <a
+                    href={projectHref}
+                    className="block h-full"
+                    aria-label={`View ${project.title}`}
+                  >
+                    {coverImage ? (
+                      <img
+                        src={coverImage}
+                        alt={project.title}
+                        className="project-card-image h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="project-card-fallback">
+                        <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
+                        <span>{project.title}</span>
+                      </div>
+                    )}
+                  </a>
+                </div>
+              )}
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <div>
                   <h3 className="text-xl font-semibold">

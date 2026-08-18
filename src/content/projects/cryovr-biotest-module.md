@@ -3,7 +3,7 @@ title: CryoVR Biotest Module
 description: Online virtual lab environment for cryo-EM pre-training and novice lab-practice support.
 coverImage: /projects/cryo-vr.jpeg
 date: "2019"
-tags: [research, vr]
+tags: [research]
 role: Interaction Researcher
 links:
   website: https://va.tech.purdue.edu/cryoVR/index.php/sampe-page/
