@@ -3,7 +3,7 @@ title: Illumination Plus + Temporal Exploration
 description: Large-scale network visualization and timeline-based graph prototypes for policy analysis, traffic flow, and anomaly investigation.
 date: "2026-02-22"
 tags: [fullstack, dataviz, react, performance]
-role: Senior Full Stack Engineer
+role: Visualization Engineer
 coverImage: /projects/illumination-plus-banner.png
 ---
 ## Brief
