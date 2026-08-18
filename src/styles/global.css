@@ -365,8 +365,10 @@ html[data-theme="dark"] .project-card-fallback,
 html[data-theme="dark"] .project-detail-fallback {
   color: var(--page-text);
   background:
-    linear-gradient(135deg, rgba(231, 237, 249, 0.08), transparent 44%),
-    linear-gradient(135deg, #171a22 0%, #1f2b2f 48%, #252131 100%);
+    radial-gradient(circle at 14% 18%, rgba(122, 166, 255, 0.34), transparent 44%),
+    radial-gradient(circle at 86% 20%, rgba(255, 154, 213, 0.28), transparent 46%),
+    radial-gradient(circle at 34% 86%, rgba(122, 255, 177, 0.18), transparent 52%),
+    linear-gradient(135deg, #1a202b 0%, #202a2d 46%, #261f34 100%);
 }
 
 @media (min-width: 768px) {
