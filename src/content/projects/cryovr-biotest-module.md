@@ -4,7 +4,7 @@ description: Online virtual lab environment for cryo-EM pre-training and novice 
 coverImage: /projects/cryo-vr.jpeg
 date: "2019"
 tags: [research]
-role: Interaction Researcher
+role: Visualization Researcher
 links:
   website: https://va.tech.purdue.edu/cryoVR/index.php/sampe-page/
 ---
