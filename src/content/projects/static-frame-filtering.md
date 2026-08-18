@@ -4,7 +4,6 @@ description: GPU-accelerated filtering experiment that reduced unnecessary video
 date: "2026-05-15"
 tags: [ml, dataviz, performance, python]
 role: AI Pipeline Engineer
-hideVisual: true
 ---
 ## Brief
 Drove evaluation and productionization of GPU-accelerated static-frame filtering for an AI video analysis pipeline.

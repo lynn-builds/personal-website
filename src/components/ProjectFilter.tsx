@@ -9,7 +9,6 @@ type Project = {
   role?: string;
   links?: { github?: string; demo?: string };
   coverImage?: string;
-  hideVisual?: boolean;
 };
 
 type Props = {
@@ -131,29 +130,27 @@ export default function ProjectFilter({ projects }: Props) {
 
           return (
             <article key={project.slug} className="card flex flex-col overflow-hidden rounded-3xl">
-              {!project.hideVisual && (
-                <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
-                  <a
-                    href={projectHref}
-                    className="block h-full"
-                    aria-label={`View ${project.title}`}
-                  >
-                    {coverImage ? (
-                      <img
-                        src={coverImage}
-                        alt={project.title}
-                        className="project-card-image h-full w-full object-contain"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="project-card-fallback">
-                        <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
-                        <span>{project.title}</span>
-                      </div>
-                    )}
-                  </a>
-                </div>
-              )}
+              <div className="project-card-visual h-72 border-b-2 border-black md:h-80">
+                <a
+                  href={projectHref}
+                  className="block h-full"
+                  aria-label={`View ${project.title}`}
+                >
+                  {coverImage ? (
+                    <img
+                      src={coverImage}
+                      alt={project.title}
+                      className="project-card-image h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="project-card-fallback">
+                      <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
+                      <span>{project.title}</span>
+                    </div>
+                  )}
+                </a>
+              </div>
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <div>
                   <h3 className="text-xl font-semibold">

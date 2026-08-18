@@ -4,7 +4,6 @@ description: Bounded agentic workflow that turns time-series forecast data into 
 date: "2026-06-01"
 tags: [ml, dataviz, react, fullstack]
 role: Full Stack Engineer
-hideVisual: true
 ---
 ## Brief
 Built an LLM-based agentic application for visualizing time-series sales forecasts. The system retrieves forecast data, applies deterministic business logic, and gives the model only the schema and sample context needed to recommend an appropriate chart.

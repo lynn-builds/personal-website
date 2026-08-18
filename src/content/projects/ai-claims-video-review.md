@@ -4,7 +4,6 @@ description: AI-assisted review product that turns model detections into faster,
 date: "2026-04-15"
 tags: [fullstack, react, ml, dataviz]
 role: Full Stack Engineer
-hideVisual: true
 ---
 ## Brief
 Owned end-to-end delivery of a human-in-the-loop AI claims video review product that connects model output with reviewer judgment.
