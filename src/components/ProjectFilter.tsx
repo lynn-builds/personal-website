@@ -145,7 +145,6 @@ export default function ProjectFilter({ projects }: Props) {
                     />
                   ) : (
                     <div className="project-card-fallback">
-                      <span className="font-mono text-xs uppercase tracking-wide">$ open</span>
                       <span>{project.title}</span>
                     </div>
                   )}
