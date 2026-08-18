@@ -144,9 +144,7 @@ export default function ProjectFilter({ projects }: Props) {
                       loading="lazy"
                     />
                   ) : (
-                    <div className="project-card-fallback">
-                      <span>{project.title}</span>
-                    </div>
+                    <div className="project-card-fallback" aria-hidden="true" />
                   )}
                 </a>
               </div>
