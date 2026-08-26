@@ -1,6 +1,7 @@
 ---
 title: AuroraMap
 description: Boundary-homographic visualization for mapping multivariate 2D spatial distributions.
+coverImage: /projects/auroramap.png
 date: "2020-04-29"
 tags: [research, dataviz]
 role: Visualization Researcher
