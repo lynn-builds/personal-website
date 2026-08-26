@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectFilter from "../../components/ProjectFilter";
+import { sortProjects } from "../../lib/projectOrder";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-const projectData = projects
-  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
+const projectData = sortProjects(projects)
   .map((entry) => ({
   slug: entry.slug,
   ...entry.data,
