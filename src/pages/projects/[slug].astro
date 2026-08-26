@@ -28,8 +28,14 @@ const tagLabels = {
 const toDisplayLabel = (value) =>
   tagLabels[value] ?? value.replace(/(^|\s|-)\S/g, (match) => match.toUpperCase());
 const projectLinks = [
-  project.data.links?.website && { label: "Project Link", href: project.data.links.website },
-  project.data.links?.github && { label: "Git Repo", href: project.data.links.github },
+  project.data.links?.website && {
+    label: "Explore the project at:",
+    href: project.data.links.website,
+  },
+  project.data.links?.github && {
+    label: "View the Git repo at:",
+    href: project.data.links.github,
+  },
 ].filter(Boolean);
 ---
 <BaseLayout title={`${project.data.title} | Projects`}>
@@ -55,20 +61,20 @@ const projectLinks = [
           ))}
         </div>
         {projectLinks.length > 0 && (
-          <div class="space-y-2 pt-1">
-            <div class="font-mono text-xs uppercase tracking-wide text-black/80">Links</div>
-            <div class="flex flex-wrap items-center gap-4 text-sm font-mono">
-              {projectLinks.map((link) => (
+          <div class="space-y-2 pt-2 font-mono text-sm">
+            {projectLinks.map((link) => (
+              <p class="max-w-full break-words">
+                <span class="text-black/80">{link.label}</span>{" "}
                 <a
-                  class="underline decoration-2 underline-offset-4 hover:opacity-70"
+                  class="font-semibold underline decoration-2 underline-offset-4 hover:opacity-70"
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {link.label}
+                  {link.href}
                 </a>
-              ))}
-            </div>
+              </p>
+            ))}
           </div>
         )}
       </header>
