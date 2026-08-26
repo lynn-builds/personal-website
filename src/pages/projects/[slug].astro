@@ -32,6 +32,10 @@ const projectLinks = [
     label: "Explore the project at:",
     href: project.data.links.website,
   },
+  project.data.links?.paper && {
+    label: "View the research paper at:",
+    href: project.data.links.paper,
+  },
   project.data.links?.github && {
     label: "View the Git repo at:",
     href: project.data.links.github,

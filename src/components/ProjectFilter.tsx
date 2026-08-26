@@ -7,7 +7,7 @@ type Project = {
   date: string;
   tags: string[];
   role?: string;
-  links?: { github?: string; demo?: string };
+  links?: { github?: string; demo?: string; website?: string; paper?: string };
   coverImage?: string;
 };
 
