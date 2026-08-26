@@ -1,6 +1,7 @@
 ---
 title: Static Frame Filtering for AI Video Analysis
 description: GPU-accelerated filtering experiment that reduced unnecessary video processing while preserving fall-event recall.
+coverImage: /projects/static-frame-filtering.png
 date: "2026-05-15"
 tags: [ml, dataviz, performance, python]
 role: AI Pipeline Engineer
@@ -17,6 +18,7 @@ I framed a recall-first evaluation, selected representative camera conditions, i
 ## Highlights
 - Compared KNN, MOG2, and frame differencing against recall-first criteria.
 - Analyzed approximately 120 real-world videos across varied camera profiles.
+- Modeled how input resolution and bounding-box scale influenced fall-detection confidence, using nonlinear regression with 95% confidence intervals to quantify sensitivity across camera profiles.
 - Visualized threshold sensitivity, recall, retained-frame rate, and processing time in Plotly.
 - Implemented GPU acceleration and adaptive behavior for different camera categories.
 

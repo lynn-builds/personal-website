@@ -5,12 +5,12 @@ type ProjectEntry = CollectionEntry<"projects">;
 export const projectOrder = [
   "illumination-plus",
   "ransomware-protection-dashboard",
+  "static-frame-filtering",
   "zillow-housing-metrics",
   "food-nutrition-diabetes-visualization",
   "auroramap",
   "cryovr-biotest-module",
   "llm-visualization-agent",
-  "static-frame-filtering",
   "ai-claims-video-review",
   "enterprise-sales-inventory-analytics",
   "impending-bloom",
