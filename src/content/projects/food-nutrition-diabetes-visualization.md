@@ -5,6 +5,8 @@ coverImage: /projects/food-nutrition-diabetes-visualization.jpeg
 date: "2019"
 tags: [research, dataviz]
 role: Visualization Researcher
+links:
+  website: https://va.tech.purdue.edu/PacificVis/
 ---
 ## Brief
 Food Nutrition Visualization for Diabetes is an interactive infographic focused on diabetes-conscious food exploration. It visualizes nutrition information for 93 types of food and helps users reason about glycemic index, food categories, and meal balance.

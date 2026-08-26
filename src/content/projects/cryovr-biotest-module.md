@@ -1,5 +1,5 @@
 ---
-title: CryoVR Biotest Module
+title: CryoVR Biotest WebGL Module
 description: Online virtual lab environment for cryo-EM pre-training and novice lab-practice support.
 coverImage: /projects/cryo-vr.jpeg
 date: "2019"
@@ -9,7 +9,7 @@ links:
   website: https://va.tech.purdue.edu/cryoVR/index.php/sampe-page/
 ---
 ## Brief
-CryoVR Biotest Module is part of a virtual training environment for cryo-EM sample-preparation workflows. The online module helps novice users practice equipment concepts before working with specialized lab hardware.
+CryoVR Biotest WebGL Module is part of a virtual training environment for cryo-EM sample-preparation workflows. The online module helps novice users practice equipment concepts before working with specialized lab hardware.
 
 ## Problem
 Cryo-EM training can be bottlenecked by limited equipment access, complex preparation procedures, and the high cost of mistakes during hands-on practice. Novice users need a lower-risk way to learn equipment structure and workflow sequencing.

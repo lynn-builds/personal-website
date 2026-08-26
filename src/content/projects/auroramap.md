@@ -4,6 +4,8 @@ description: Boundary-homographic visualization for mapping multivariate 2D spat
 date: "2020-04-29"
 tags: [research, dataviz]
 role: Visualization Researcher
+links:
+  website: https://www.youtube.com/watch?v=7ajaTj00VyM
 ---
 ## Brief
 AuroraMap is a research visualization method for mapping multivariate 2D spatial distributions. It projects clusters from a spatial distribution to a boundary band and color-encodes their densities so dense internal structures can be read without filling the main map area.
