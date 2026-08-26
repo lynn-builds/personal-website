@@ -85,7 +85,7 @@ const projectLinks = [
     </section>
 
     <section class="space-y-6">
-      {coverUrl ? (
+      {coverUrl && (
         <div class="card overflow-hidden rounded-3xl">
           <img
             src={coverUrl}
@@ -93,8 +93,6 @@ const projectLinks = [
             class="max-h-[75vh] w-full object-contain"
           />
         </div>
-      ) : (
-        <div class="card project-detail-fallback rounded-3xl" aria-hidden="true"></div>
       )}
       <div class="rich-content">
         <Content />
