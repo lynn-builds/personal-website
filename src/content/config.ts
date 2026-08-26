@@ -11,6 +11,7 @@ const projects = defineCollection({
     links: z
       .object({
         github: z.string().url().optional(),
+        githubLabel: z.string().optional(),
         demo: z.string().url().optional(),
         website: z.string().url().optional(),
         paper: z.string().url().optional(),

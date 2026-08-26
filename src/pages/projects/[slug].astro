@@ -37,7 +37,7 @@ const projectLinks = [
     href: project.data.links.paper,
   },
   project.data.links?.github && {
-    label: "View the Git repo at:",
+    label: project.data.links.githubLabel ?? "View the Git repo at:",
     href: project.data.links.github,
   },
 ].filter(Boolean);

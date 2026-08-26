@@ -8,6 +8,8 @@ role: Visualization Researcher
 links:
   website: https://www.youtube.com/watch?v=7ajaTj00VyM
   paper: https://www.semanticscholar.org/paper/AURORAMAP%3A-A-BOUNDARY-HOMOGRAPHIC-VISUALIZATION-FOR-Han/6b4434fe9103df829446c63b98fca85883728e54
+  github: https://github.com/Lynnhan95/contour-vis
+  githubLabel: "View Open Source algorithm repo here:"
 ---
 ## Brief
 AuroraMap is a research visualization method for mapping multivariate 2D spatial distributions. It projects clusters from a spatial distribution to a boundary band and color-encodes their densities so dense internal structures can be read without filling the main map area.
